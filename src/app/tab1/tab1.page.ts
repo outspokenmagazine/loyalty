@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 
 @Component({
   selector: 'app-tab1',
@@ -8,19 +8,34 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 })
 export class Tab1Page {
 
-  data: any;
+  scanActive = false;
+  scannedData;
 
   constructor(
-    private barcodeScanner: BarcodeScanner
   ) {}
 
-  scan() {
-    this.data = null;
-    this.barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', barcodeData);
-      this.data = barcodeData;
-    }).catch(err => {
-      console.log('Error', err);
-    });
+  onDestroy() {
+    this.stopScan();
+  }
+
+  async startScanner() {
+    this.scannedData = '';
+
+    BarcodeScanner.hideBackground();
+
+    this.scanActive = true;
+
+    const result = await BarcodeScanner.startScan();
+
+    if (result.hasContent) {
+      console.log(result.content); // log the raw scanned content
+      this.scannedData = result.content;
+    }
+  }
+
+  async stopScan() {
+    BarcodeScanner.showBackground();
+    BarcodeScanner.stopScan();
+    this.scanActive = false;
   }
 }
