@@ -32,8 +32,13 @@ export class CouponService {
 
   updateCurrentCount(id, count) {
     this.firestore.collection('coupons').doc(id).update({currentCount: count})
-      .then(() => {
-      })
+      .then(() => { })
+      .catch(error => console.log(error));
+  }
+
+  updateFreeCount(id, count) {
+    this.firestore.collection('coupons').doc(id).update({currentCount: 0, freeCount: count})
+      .then(() => { })
       .catch(error => console.log(error));
   }
 }
