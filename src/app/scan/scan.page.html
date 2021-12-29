@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Scan
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [class.scan-active]="scanActive">
+
+  <ion-button *ngIf="!scanActive || isCountAdded" expand="full" shape="round" color="primary" (click)="startScan()">
+    Scan Code
+  </ion-button>
+  <ion-button *ngIf="scanActive" expand="full" shape="round" color="primary" (click)="stopScan()">
+    Stop
+  </ion-button>
+
+  <ion-button *ngIf="isCustomer && !isCountAdded" expand="full" shape="round" color="primary" (click)="addCount()">
+    Add coffee
+  </ion-button>
+
+</ion-content>

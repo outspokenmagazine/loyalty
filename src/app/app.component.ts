@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Capacitor } from '@capacitor/core';
+import { indexedDBLocalPersistence, initializeAuth } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,12 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor() {
+    const app = initializeApp(environment.firebaseConfig);
+    if (Capacitor.isNativePlatform) {
+      initializeAuth(app, {
+        persistence: indexedDBLocalPersistence
+      });
+    }
+  }
 }
