@@ -1,17 +1,39 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Shop Setup
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <form [formGroup]="shopDetailsForm">
+
+    <ion-item lines="none">
+      <ion-label position="fixed">Shop Name</ion-label>
+      <ion-input formControlName="shopName" value="{{ shopDetails?.name }}"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.shopName">
+      <p class="error-message" *ngIf="(shopDetailsForm.get('shopName').hasError(errorMessage.type))">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+    <ion-item lines="none">
+      <ion-label position="fixed">Max Count</ion-label>
+      <ion-input formControlName="maxCount" type="number" value="{{ shopDetails?.maxCount }}"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.maxCount">
+      <p class="error-message" *ngIf="(shopDetailsForm.get('maxCount').hasError(errorMessage.type))">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+    <ion-button expand="full" shape="round" color="primary" (click)="save()">
+      Speichern
+    </ion-button>
+
+  </form>
+
 </ion-content>

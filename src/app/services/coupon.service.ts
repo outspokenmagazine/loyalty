@@ -11,7 +11,7 @@ export class CouponService {
     private firestore: AngularFirestore
   ) { }
 
-  // Get coupon by user id
+  // Get coupon by user id and shop id
   getCoupon(uid, shopId) {
     return this.firestore.collection('coupons', ref => ref.where('uid', '==', uid).where('shop', '==', shopId)).snapshotChanges();
   }
@@ -30,12 +30,14 @@ export class CouponService {
     return subject.asObservable();
   }
 
+  // Update the current count of the coupon
   updateCurrentCount(id, count) {
     this.firestore.collection('coupons').doc(id).update({currentCount: count})
       .then(() => { })
       .catch(error => console.log(error));
   }
 
+  // Update the count of a free item
   updateFreeCount(id, count) {
     this.firestore.collection('coupons').doc(id).update({currentCount: 0, freeCount: count})
       .then(() => { })
