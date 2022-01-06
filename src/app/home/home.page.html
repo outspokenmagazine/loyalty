@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+<!--
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="sign-up" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+-->
+    <ion-title>Kup.io</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--
+  <ion-grid id="qr-code">
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <qr-code [value]="encodeData"></qr-code>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+-->
+  <ion-grid id="shop-name">
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        {{ shopDetails?.name }}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid id="coupon">
+    <ion-row class="ion-text-center">
+      <ion-col *ngFor="let count of index">
+        <ion-icon *ngIf="count <= coupon?.currentCount" name="cafe"></ion-icon>
+        <ion-icon *ngIf="count > coupon?.currentCount" name="cafe-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid id="present">
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <ion-icon name="gift-outline"></ion-icon>
+        <p>
+          {{ coupon?.freeCount }}
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
