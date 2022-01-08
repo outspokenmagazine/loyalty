@@ -33,10 +33,11 @@ export class HomePage {
     this.shopService.getDetails(this.shopId).subscribe(data => {
       this.shopDetails = data;
     });
-/*
+
     this.couponService.getCouponByUserId(this.user.uid).subscribe(data => {
       this.coupon = data[0];
+      console.log('this.coupon', this.coupon);
     });
-*/
+
   }
 }

@@ -21,9 +21,7 @@ export class ScanPage {
   constructor(
     public alertController: AlertController,
     private couponService: CouponService
-  ) {
-    console.log('Here');
-  }
+  ) { }
 
   onDestroy() {
     this.stopScan();

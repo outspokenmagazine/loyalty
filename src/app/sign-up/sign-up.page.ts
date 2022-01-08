@@ -27,4 +27,9 @@ export class SignUpPage implements OnInit {
       }
     );
   };
+
+  register() {
+    console.log('register');
+    this.router.navigate(['register']);
+  };
 }

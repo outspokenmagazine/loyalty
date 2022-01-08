@@ -75,4 +75,9 @@ export class CouponService {
       .then(() => { })
       .catch(error => console.log(error));
   }
+
+  // Delete
+  delete(id) {
+    this.firestore.doc('coupons/' + id).delete();
+  }
 }

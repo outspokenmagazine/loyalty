@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "shop",
+	"appId": "io.kup",
+	"appName": "Kup.io",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }

@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-//import { QrCodeModule } from 'ng-qrcode';
+import { QrCodeModule } from 'ng-qrcode';
 
 @NgModule({
   imports: [
     CommonModule,
-//    QrCodeModule,
+    QrCodeModule,
     FormsModule,
     IonicModule,
     HomePageRoutingModule
