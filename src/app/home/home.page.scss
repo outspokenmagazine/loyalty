@@ -1,19 +1,18 @@
-img {
-  width: 60%;
-  margin: 10% 20% 20% 20%;
+ion-icon {
+  font-size: 45px;
 }
 
-ion-icon {
-  font-size: 50px;
+ion-content {
+  --background: url(../../assets/images/background_II.jpg) no-repeat center/cover fixed;
 }
 
 #coupon {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 #present {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 p {
@@ -23,5 +22,10 @@ p {
 
 #qr-code {
   margin-top: 60px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+}
+
+#shop-name {
+  font-size: 30px;
+  margin-bottom: 20px;
 }

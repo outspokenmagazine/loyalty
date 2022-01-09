@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   isSubmit = false;
   isEmailError = false;
   isPasswordError = false;
-//  isPasswordVisible = false;
+  isPasswordVisible = false;
 //  isIOS = false;
   error: any;
   errorMessages: any;
@@ -123,4 +123,9 @@ export class LoginPage implements OnInit {
         });
     }
   }
+
+  togglePassword() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
 }

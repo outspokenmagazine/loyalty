@@ -4,12 +4,12 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+	--ion-color-primary: #0b421a;
+	--ion-color-primary-rgb: 11,66,26;
+	--ion-color-primary-contrast: #ffffff;
+	--ion-color-primary-contrast-rgb: 255,255,255;
+	--ion-color-primary-shade: #0a3a17;
+	--ion-color-primary-tint: #235531;
 
   /** secondary **/
   --ion-color-secondary: #3dc2ff;
@@ -81,7 +81,7 @@
    * Dark Colors
    * -------------------------------------------
    */
-
+/*
   body {
     --ion-color-primary: #428cff;
     --ion-color-primary-rgb: 66,140,255;
@@ -146,12 +146,12 @@
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
   }
-
+*/
   /*
    * iOS Dark Theme
    * -------------------------------------------
    */
-
+/*
   .ios body {
     --ion-background-color: #000000;
     --ion-background-color-rgb: 0,0,0;
@@ -189,13 +189,13 @@
     --ion-toolbar-background: var(--ion-color-step-150);
     --ion-toolbar-border-color: var(--ion-color-step-250);
   }
-
+*/
 
   /*
    * Material Design Dark Theme
    * -------------------------------------------
    */
-
+/*
   .md body {
     --ion-background-color: #121212;
     --ion-background-color-rgb: 18,18,18;
@@ -233,4 +233,5 @@
 
     --ion-card-background: #1e1e1e;
   }
+*/
 }

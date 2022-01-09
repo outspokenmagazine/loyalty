@@ -2,6 +2,10 @@
   --background: #00000000;
 }
 
+ion-content {
+  --background: url(../../assets/images/background III.jpg) no-repeat center/cover fixed;
+}
+
 ion-button {
   margin-left: 10%;
   margin-right: 10%;

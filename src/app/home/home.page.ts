@@ -35,7 +35,7 @@ export class HomePage {
     });
 
     this.couponService.getCouponByUserId(this.user.uid).subscribe(data => {
-      this.coupon = data[0];
+      this.coupon = data[0].payload.doc.data();
       console.log('this.coupon', this.coupon);
     });
 
