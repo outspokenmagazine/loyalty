@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="loginForm">
+
+    <div id="top-space"></div>
+
+    <ion-item lines="none" class="login-item" [class.invalid]="(!loginForm.controls.email.valid || isEmailError) && isSubmit">
+      <ion-input class="input" formControlName="email" type="email" name="email" placeholder="Email Adresse"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.email">
+      <p class="error-message" *ngIf="(loginForm.get('email').hasError(errorMessage.type) || error?.code === errorMessage.type) && isSubmit">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+    <ion-item lines="none" class="login-item" [class.invalid]="(!loginForm.controls.password.valid || isPasswordError) && isSubmit">
+      <ion-input *ngIf="!isPasswordVisible" class="input" formControlName="password" type="password" name="password" placeholder="Passwort"></ion-input>
+      <ion-icon *ngIf="!isPasswordVisible" (click)="togglePassword()" name="eye-off-outline"></ion-icon>
+      <ion-input *ngIf="isPasswordVisible" class="input" formControlName="password" type="input" name="password" placeholder="Passwort"></ion-input>
+      <ion-icon *ngIf="isPasswordVisible" (click)="togglePassword()" name="eye-outline"></ion-icon>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.password">
+      <p class="error-message" *ngIf="(loginForm.get('password').hasError(errorMessage.type) || error?.code === errorMessage.type) && isSubmit">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+    <p class="recover-password" (click)="recoverPassword()">Passwort vergessen?</p>
+
+    <ion-button id="login" size="default" expand="block" color="dark" (click)="login()">Login</ion-button>
+<!--
+    <ion-row id="or" class="ion-justify-content-center">
+      <ion-label>oder</ion-label>
+    </ion-row>
+
+    <ion-button id="register" size="default" expand="block" color="dark" [routerLink]="['/register']">
+      <ion-icon name="mail-outline"></ion-icon>
+      <ion-label>Registrieren</ion-label>
+    </ion-button>
+
+    <ion-button id="google" size="default" expand="block" (click)="googleLogin()">
+      <ion-icon name="logo-google"></ion-icon>
+      <ion-label>Weiter mit Google</ion-label>
+    </ion-button>
+
+    <ion-button id="facebook" size="default" expand="block" (click)="facebookLogin()">
+      <ion-icon name="logo-facebook"></ion-icon>
+      <ion-label>Weiter mit Facebook</ion-label>
+    </ion-button>
+
+    <ion-button *ngIf="isIOS" id="apple" size="default" expand="block" (click)="appleLogin()">
+      <ion-icon name="logo-apple"></ion-icon>
+      <ion-label>Weiter mit Apple</ion-label>
+    </ion-button>
+
+    <ion-row>
+      <ion-col size="6">
+        <p class="terms-and-conditions" (click)="termsAndConditions()">AGB</p>
+      </ion-col>
+      <ion-col size="6">
+        <p class="imprint" (click)="imprint()">Impressum</p>
+      </ion-col>
+    </ion-row>
+-->
+  </form>
+
+</ion-content>

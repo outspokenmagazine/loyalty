@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth/';
 import { Router } from '@angular/router';
-import { UserService } from './../services/user.service';
-import { CouponService } from './../services/coupon.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +12,8 @@ export class AuthenticationService {
   constructor(
     public fireAuth: AngularFireAuth,
     private router: Router,
-    private userService: UserService,
-    private couponService: CouponService
   ) {
+
     // Get the auth state, then fetch the Firestore user document
     this.fireAuth.authState.subscribe(user => {
       if (user) {
@@ -29,6 +26,7 @@ export class AuthenticationService {
         console.log('else user', user);
       }
     });
+
   }
 
   // Returns true when user is looged in
@@ -69,6 +67,11 @@ export class AuthenticationService {
     return user;
   }
 
+  // User login with email and password
+  login(email, password) {
+    return this.fireAuth.signInWithEmailAndPassword(email, password);
+  }
+
   // Sends an email to the user to reset the password
   async recoverPassword(email: string) {
     const resetPassword = await this.fireAuth.sendPasswordResetEmail(email);
@@ -87,14 +90,4 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
     });
   }
-
-  // Delete user
-  deleteUser() {
-    this.userService.delete(this.user.uid);
-    this.couponService.delete(this.user.uid);
-    localStorage.removeItem('user');
-    this.user.delete();
-    this.router.navigate(['/login']);
-  }
-
 }

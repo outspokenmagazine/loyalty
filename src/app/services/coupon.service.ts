@@ -40,7 +40,7 @@ export class CouponService {
   }
 
   getCouponByUserId(userId) {
-    return this.firestore.collection('coupons', ref => ref.where('uid', '==', userId)).valueChanges();
+    return this.firestore.collection('coupons', ref => ref.where('uid', '==', userId)).snapshotChanges();
   }
 
   // Get coupon by user id and shop id
@@ -79,5 +79,15 @@ export class CouponService {
   // Delete
   delete(id) {
     this.firestore.doc('coupons/' + id).delete();
+  }
+
+  // Delete by user id
+  deleteByUserId(uid) {
+    console.log('deleteByUserId');
+    this.getCouponByUserId(uid).subscribe((data) => {
+      data.forEach(item => {
+        this.firestore.doc('coupons/' + item.payload.doc.id).delete();
+      });
+    });
   }
 }

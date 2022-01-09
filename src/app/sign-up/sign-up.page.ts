@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
 import { CouponService } from '../services/coupon.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +14,8 @@ export class SignUpPage implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthenticationService,
-    public couponService: CouponService
+    public couponService: CouponService,
+    public userService: UserService
   ) { }
 
   ngOnInit() {
@@ -31,5 +33,10 @@ export class SignUpPage implements OnInit {
   register() {
     console.log('register');
     this.router.navigate(['register']);
+  };
+
+  login() {
+    console.log('register');
+    this.router.navigate(['login']);
   };
 }

@@ -11,4 +11,57 @@
 
 <ion-content>
 
+  <form [formGroup]="registrationForm">
+
+    <ion-item lines="none" [class.invalid]="!registrationForm.controls.firstName.valid && registrationForm.controls.firstName.touched">
+      <ion-input formControlName="firstName" type="text" placeholder="Vorname"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.firstName">
+      <p class="error-message" *ngIf="registrationForm.get('firstName').hasError(errorMessage.type) && registrationForm.controls.firstName.touched">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+    <ion-item lines="none" [class.invalid]="!registrationForm.controls.lastName.valid && registrationForm.controls.lastName.touched">
+      <ion-input formControlName="lastName" type="text" placeholder="Nachname"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.lastName">
+      <p class="error-message" *ngIf="registrationForm.get('lastName').hasError(errorMessage.type) && registrationForm.controls.lastName.touched">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+    <ion-item lines="none" [class.invalid]="(!registrationForm.controls.email.valid && registrationForm.controls.email.touched) || isAlreadyInUser">
+      <ion-input formControlName="email" type="email" placeholder="Email Adresse"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.email">
+      <p class="error-message" *ngIf="(registrationForm.get('email').hasError(errorMessage.type) || error?.code === errorMessage.type) && registrationForm.controls.email.touched">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+    <ion-item lines="none" [class.invalid]="!registrationForm.controls.password.valid && registrationForm.controls.password.touched">
+      <ion-input formControlName="password" type="password" placeholder="Passwort"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.password">
+      <p class="error-message" *ngIf="registrationForm.get('password').hasError(errorMessage.type) && registrationForm.controls.password.touched">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+    <ion-item lines="none" [class.invalid]="!registrationForm.controls.confirmPassword.valid && registrationForm.controls.confirmPassword.touched">
+      <ion-input formControlName="confirmPassword" type="password" placeholder="Passwort wiederholen"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let errorMessage of errorMessages.confirmPassword">
+      <p class="error-message" *ngIf="registrationForm.get('confirmPassword').hasError(errorMessage.type) && registrationForm.controls.confirmPassword.touched">
+          {{ errorMessage.message }}
+      </p>
+    </ng-container>
+
+  </form>
+
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-button (click)="submitForm()" expand="block" color="dark" [disabled]="!registrationForm.valid">Registieren</ion-button>
+</ion-footer>

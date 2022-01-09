@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
+import { CouponService } from '../services/coupon.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class UserService {
 
   constructor(
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private router: Router,
+    private couponService: CouponService
   ) { }
 
   // Create
@@ -16,12 +20,12 @@ export class UserService {
   }
 
   // Get list
-  getUsers() {
+  getAll() {
     return this.firestore.collection('users').snapshotChanges();
   }
 
   // Get single
-  getUser(id) {
+  get(id) {
     return this.firestore.collection('users').doc(id).valueChanges();
   }
 
@@ -34,6 +38,10 @@ export class UserService {
 
   // Delete user
   delete(id) {
+    console.log('delete');
+    this.couponService.deleteByUserId(id);
+    localStorage.removeItem('user');
     this.firestore.doc('users/' + id).delete();
+    this.router.navigate(['/login']);
   }
 }
