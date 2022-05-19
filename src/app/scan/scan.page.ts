@@ -53,8 +53,8 @@ export class ScanPage {
   async presentFreeCountAdded() {
     const alert = await this.alertController.create({
       cssClass: 'custom-alert-class',
-      header: 'Kaffee hinzugefügt',
-      message: 'Wir haben dem Coupon einen Kaffee hinzugefügt',
+      header: 'Freier Kaffee hinzugefügt',
+      message: 'Wir haben dem Coupon einen freien Kaffee hinzugefügt',
       buttons: ['OK']
     });
     await alert.present();
@@ -63,52 +63,70 @@ export class ScanPage {
     }, 2000);
   }
 
+  async checkPermission() {
+    return new Promise(async (resolve, reject) => {
+      const status = await BarcodeScanner.checkPermission({ force: true });
+      if (status.granted) {
+        resolve(true);
+      } else if (status.denied) {
+        BarcodeScanner.openAppSettings();
+        resolve(false);
+      }
+    });
+  }
+
   async startScan() {
-    this.scannedData = '';
-    this.scanActive = true;
-    this.isCustomer = false;
-    this.isCountAdded = false;
+    const allowed = await this.checkPermission();
 
-    BarcodeScanner.hideBackground();
+    if (allowed) {
+      this.scannedData = '';
+      this.scanActive = true;
+      this.isCustomer = false;
+      this.isCountAdded = false;
 
-    const result = await BarcodeScanner.startScan();
+      BarcodeScanner.hideBackground();
 
-    if (result.hasContent) {
-      this.scannedData = result.content;
-      this.scanActive = false;
+      const result = await BarcodeScanner.startScan();
+
+      if (result.hasContent) {
+        this.scannedData = result.content;
+        this.scanActive = false;
+        this.couponService.getCoupon(this.scannedData, this.shopId).subscribe((data) => {
+          if (data.length === 1) {
+            this.isCustomer = true;
+            this.coupon = data[0].payload.doc.data();
+            this.coupon.id = data[0].payload.doc.id;
+            console.log(this.coupon);
+          } else {
+            this.isCustomer = false;
+            this.presentIsNoCustomer();
+          }
+        });
+      }
+/*
+      // For debugging
+      this.scannedData = 'EBnzuJAnt9PMpLkgG5OlX2g06BC3';
       this.couponService.getCoupon(this.scannedData, this.shopId).subscribe((data) => {
         if (data.length === 1) {
           this.isCustomer = true;
           this.coupon = data[0].payload.doc.data();
           this.coupon.id = data[0].payload.doc.id;
           console.log(this.coupon);
+          if (this.coupon.currentCount >= this.coupon.maxCount) {
+            this.isEligible = true;
+          } else {
+            this.isEligible = false;
+          }
         } else {
           this.isCustomer = false;
           this.presentIsNoCustomer();
         }
       });
-    }
-/*
-    // For debugging
-    this.scannedData = 'EBnzuJAnt9PMpLkgG5OlX2g06BC3';
-    this.couponService.getCoupon(this.scannedData, this.shopId).subscribe((data) => {
-      if (data.length === 1) {
-        this.isCustomer = true;
-        this.coupon = data[0].payload.doc.data();
-        this.coupon.id = data[0].payload.doc.id;
-        console.log(this.coupon);
-        if (this.coupon.currentCount >= this.coupon.maxCount) {
-          this.isEligible = true;
-        } else {
-          this.isEligible = false;
-        }
-      } else {
-        this.isCustomer = false;
-        this.presentIsNoCustomer();
-      }
-    });
 */
-}
+    } else {
+      alert('NOT ALLOWED!');
+    }
+  }
 
   async stopScan() {
     this.scanActive = false;
